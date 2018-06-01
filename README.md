@@ -1,2 +1,2 @@
 # SG
-Sphere Grinder - program for evaluation protein tertiary structure prediction based on local superposition of predicted and reference structure.
+Sphere Grinder - program for evaluation of protein tertiary structure predictions based on local superposition of predicted and reference structures.
