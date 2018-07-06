@@ -190,7 +190,7 @@ class Sphere:
         try:
           if data[resseq]['sph'][radius_index]['rms']<=thresh:
             tmp[i] = tmp[i] + data[resseq]['sph'][radius_index]['frac']
-        except ValueError: 
+        except (ValueError, TypeError): 
           # do nothing if the vaue not a number 
           # that might be the case of missing residues/atoms in model
           pass
