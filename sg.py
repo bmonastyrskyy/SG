@@ -31,7 +31,7 @@ if (__name__ == '__main__'):
     config.read("default.ini")
     radii_str = config.get('Sphere_params', 'radii')
     caOnly = config.getboolean('Sphere_params', 'caOnly')
-    incompleteBBmax = config.getin('PDB_structure', 'incompleteBBmax')
+    incompleteBBmax = config.getint('PDB_structure', 'incompleteBBmax')
   except (OSError("default.ini"), KeyError, IOError, ConfigParser.NoSectionError): 
     # if config file doesn't exists, can't be read, 
     # doesn't have proper parameters, etc
