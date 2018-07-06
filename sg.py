@@ -31,11 +31,13 @@ if (__name__ == '__main__'):
     config.read("default.ini")
     radii_str = config.get('Sphere_params', 'radii')
     caOnly = config.getboolean('Sphere_params', 'caOnly')
+    incompleteBBmax = config.getin('PDB_structure', 'incompleteBBmax')
   except (OSError("default.ini"), KeyError, IOError, ConfigParser.NoSectionError): 
     # if config file doesn't exists, can't be read, 
     # doesn't have proper parameters, etc
     radii_str = '1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,10.0,12.0,14.0,16.0,18.0,20.0,22.0,24.0,26.0,28.0,30.0,300.0'
     caOnly = False # by default process all atoms
+    incompleteBBmax = 5
   # convert string of parameter radii into array of floats
   radii = []
   for r in radii_str.split(","):
@@ -74,7 +76,7 @@ if (__name__ == '__main__'):
   pdbu = PDBUtils()
   model = pdbu.filterNonStdAtoms(model)
   target = pdbu.filterNonStdAtoms(target)
-  model = pdbu.checkBB(model)
+  model = pdbu.checkBB(model, incompleteBBmax)
   target = pdbu.checkBB(target)
   m_ch = pdbu.extractFirstChain(model)
   t_ch = pdbu.extractFirstChain(target)
