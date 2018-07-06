@@ -162,18 +162,24 @@ class PDBUtils:
         res.get_resname())
         raise WrongAminoAcidError(message)
   
-  def checkBB(self, struct):
+  def checkBB(self, struct, maxIncompleteBBallowed):
     """ Method checks if all residues have all backbone atoms. 
-        Otherwise it raises IncompleteBBError.
+        The tolerance level of allowed incomplete backbones per chain is set by 
+        the argument maxIncompleteBBallowed.
+        The method raises IncompleteBBError if too many incomplete backbones.
     """
     for m in struct: # loop over pdb models
       for ch in m:   # loop over chains
+        curIncompleteBB = 0;
+        message = ''
         for res in ch:  # loop over residues
           for bb in self.BB:  # loop over atoms of backbone N, C, CA, O
             try:
               res[bb]
             except KeyError:
-              message = "In residue {} {} backbone atom {} is missing.".format(\
+              message = message + "In residue {} {} backbone atom {} is missing.\n".format(\
               res.get_resname(), res.id[1], bb)
-              raise IncompleteBBError(message)
+              curIncompleteBB = curIncompleteBB + 1
+              if curIncompleteBB > maxIncompleteBBallowed:
+                raise IncompleteBBError(message)
     return struct;
