@@ -77,7 +77,7 @@ if (__name__ == '__main__'):
   model = pdbu.filterNonStdAtoms(model)
   target = pdbu.filterNonStdAtoms(target)
   model = pdbu.checkBB(model, incompleteBBmax)
-  target = pdbu.checkBB(target)
+  target = pdbu.checkBB(target, incompleteBBmax)
   m_ch = pdbu.extractFirstChain(model)
   t_ch = pdbu.extractFirstChain(target)
   if DEBUG==1:
